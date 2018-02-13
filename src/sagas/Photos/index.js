@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects';
-import { flickrImages } from '../Api/api';
-import * as types from '../constants/actionTypes';
+import { flickrImages } from '../../Api/api';
+import * as types from '../../constants/actionTypes';
 
 // Responsible for searching media library, making calls to the API
 // and instructing the redux-saga middle ware on the next line of action,
@@ -13,6 +13,6 @@ export function* searchPhotoSaga({ payload }) {
       put({ type: types.SELECTED_IMAGE, image: images[0] })
     ];
   } catch (error) {
-    yield put({ type: 'SEARCH_MEDIA_ERROR', error });
+    yield put({ type: 'SEARCH_PHOTO_ERROR', error });
   }
 }

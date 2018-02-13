@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { selectImageAction, searchMediaAction, selectVideoAction } from '../actions/mediaActions';
+import { selectImageAction, searchMediaAction, selectVideoAction , searchPhotoAction, searchVideoAction} from '../actions/mediaActions';
 import PhotoPage from '../components/PhotoPage';
 import VideoPage from '../components/VideoPage';
 import '../styles/style.css';
@@ -10,31 +10,35 @@ import '../styles/style.css';
 class MediaGalleryPage extends Component {
   constructor() {
     super();
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleSelectImage = this.handleSelectImage.bind(this);
-    this.handleSelectVideo = this.handleSelectVideo.bind(this);
+    // this.handleSearch = this.handleSearch.bind(this);
+    //this.handleSelectImage = this.handleSelectImage.bind(this);
+    // this.handleSelectVideo = this.handleSelectVideo.bind(this);
   }
 
   // Dispatches *searchMediaAction*  immediately after initial rendering.
   componentDidMount() {
-    this.props.dispatch(searchMediaAction('rain'));
+    this.props.dispatch(searchPhotoAction('rain'));
+    this.props.dispatch(searchVideoAction('rain'));
   }
 
   // Dispatches *selectImageAction* when any image is clicked
-  handleSelectImage(selectedImage) {
-    this.props.dispatch(selectImageAction(selectedImage));
+  handleSelectImage = (selectedImage) => {
+    const { dispatch } = this.props;
+    dispatch(selectImageAction(selectedImage));
   }
 
   // Dispatches *selectVideoAction* when any video is clicked
-  handleSelectVideo(selectedVideo) {
+  handleSelectVideo = (selectedVideo) => {
     this.props.dispatch(selectVideoAction(selectedVideo));
   }
 
   // Dispatches *searchMediaAction* with query param. But only if query param is provided.
-  handleSearch(event) {
+  handleSearch = (event) => {
+    console.log('hi');
     event.preventDefault();
     if (this.query !== null) {
-      this.props.dispatch(searchMediaAction(this.query.value));
+      this.props.dispatch(searchVideoAction(this.query.value));
+      this.props.dispatch(searchPhotoAction(this.query.value));
       this.query.value = '';
     }
   }
@@ -43,7 +47,7 @@ class MediaGalleryPage extends Component {
     const { images, selectedImage, videos, selectedVideo } = this.props;
     return (
       <div className="container-fluid">
-        {images && selectedImage ? <div>
+        {images && selectedImage && videos && selectedVideo ? <div>
           <input
             type="text"
             ref={ref => (this.query = ref)}
@@ -52,7 +56,7 @@ class MediaGalleryPage extends Component {
             type="submit"
             className="btn btn-primary"
             value="Search Library"
-            onClick={this.handleSearch}
+            onClick={(event) => this.handleSearch(event)}
           />
           <div className="row">
             <PhotoPage
@@ -66,7 +70,7 @@ class MediaGalleryPage extends Component {
               onHandleSelectVideo={this.handleSelectVideo}
             />
           </div>
-        </div> : 'loading ....'}
+        </div> : 'No results found...'}
       </div>
     );
   }

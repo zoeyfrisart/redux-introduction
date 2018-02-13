@@ -12,8 +12,14 @@ export const selectVideoAction = (video) => ({
   video
 });
 
-// Returns an action type, SEARCH_MEDIA_REQUEST and the search criteria
-export const searchMediaAction = (payload) => ({
-  type: types.SEARCH_MEDIA_REQUEST,
+// Returns an action type, SEARCH_PHOTO_REQUEST and the search criteria
+export const searchPhotoAction = (payload) => ({
+  type: types.SEARCH_PHOTO_REQUEST,
+  payload
+});
+
+// Returns an action type, SEARCH_VIDEO_REQUEST and the search criteria
+export const searchVideoAction = (payload) => ({
+  type: types.SEARCH_VIDEO_REQUEST,
   payload
 });

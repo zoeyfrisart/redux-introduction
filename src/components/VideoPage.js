@@ -12,7 +12,7 @@ const VideosPage = ({ videos, onHandleSelectVideo, selectedVideo }) => (
     </div>
     <div className="video-thumbnail">
       {videos.map((video, i) => (
-        <div key={i} onClick={onHandleSelectVideo.bind(this, video)}>
+        <div key={i} onClick={() => onHandleSelectVideo(video)}>
           <video controls src={video.mediaUrl} alt={video.description} />
         </div>
       ))}

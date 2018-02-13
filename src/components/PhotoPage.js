@@ -12,7 +12,7 @@ const PhotosPage = ({ images, onHandleSelectImage, selectedImage }) => (
     </div>
     <div className="image-thumbnail">
       {images.map((image, i) => (
-        <div key={i} onClick={onHandleSelectImage.bind(this, image)}>
+        <div key={i} onClick={() => onHandleSelectImage(image)}>
           <img src={image.mediaUrl} alt={image.title} />
         </div>
       ))}
